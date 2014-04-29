@@ -67,7 +67,6 @@ class TranscodeTool(BTreeContainer):
            Add a portal object to the transcode queue
         """
         UID = IUUID(obj)
-
         fields = self._getFields(obj, fieldNames)
         if not self._hasFiles(obj, fields):
             return
@@ -79,7 +78,6 @@ class TranscodeTool(BTreeContainer):
             return
         profiles = self._getProfiles(profiles)
         secret = self.secret()
-
         for profile in profiles:
             if profile not in daemonProfiles:
                 log.warn(u"profile %s not supported by the transcode daemon at %s"
@@ -123,7 +121,7 @@ class TranscodeTool(BTreeContainer):
         fileUrl = portal_url + '/@@serve_daemon'
         # transliteration of strange filenames
         norm = queryUtility(IIDNormalizer)
-        fileName = norm.normalize(fileName.decode('utf-8'))
+        fileName = norm.normalize(fileName)
         payload = {
             'path' : filePath,
             'url' : fileUrl,
